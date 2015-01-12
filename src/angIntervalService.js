@@ -6,7 +6,7 @@
  * that is available on controllers.
  *
  * version 0.1.0
- * 
+ *
  * Example:
  * In your controller, first add the service:
  *      angular.module('app').controller('HomeCtrl', ['$scope', 'angIntervalService',

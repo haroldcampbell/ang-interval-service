@@ -1,26 +1,53 @@
-## angIntervalService
-### (version 0.1.0)
+## angIntervalService (version 0.1.0)
 
-...simple description here
+angIntervalService is a service that's wrapped around the AngularJS $interval service.
+
+It further simplifies the $interval service by handling common behaviours like:
+ * starting and stopping the service;
+ * providing additional stateful-callback; and also,
+ * auto clean-up through the built in $destroy event that is available on controllers.
 
 ## Why use angIntervalService?
 
-Instead of using the built-in $interval service provided by Angular
+Instead of using the built-in $interval service provided by Angular, and then managing the starting, stop and clean-up, this service will do that all for you.
 
 ## Installation
 
-Installation is easy as angIntervalService has AngularJS as the only dependency.
+Installation is easy as angIntervalService has AngularJS's $interval as the only dependency.
 
-Download angIntervalService, and add it to your project's script directory. Next, add it to your target module as a dependency.
+Download angIntervalService, and add it to your project's script directory.
 
-```javascript
-  angular.module('myApp', [])
-  .controller('SomeCoolController', ['$scope, angIntervalService', function($scope, angIntervalService) {
-  ...
-  }]);
-```  
+Next, add it to your target module as a dependency; for instance if we were adding it to a controller, you would do the following:
 
-The service will automatically attach a `$destroy` that is used to stop the angIntervalService. This makes it easy to user the angIntervalService in a controller, with the knowledge that the service will be automatically stopped once the controller has gone out of scope.
+In your controller, first add the service:
+    ```
+    angular.module('app').controller('HomeCtrl', ['$scope', 'angIntervalService',
+       function($scope, angIntervalService) {
+           //...define callback
+           //...starting code goes here
+       }]);
+    ```
+Define an interval_callback:
+    ```
+    /**
+     * This could be a call to a service or factory that need to be routinely called.
+     */
+    $scope.updateCounter = function() {
+        //...update something
+    };
+    ```
+Then start the service:
+    ```
+    /**
+     * Now start the service to handle updating the counter.
+     */
+    angIntervalService.start($scope, 1000, {
+        interval_callback: $scope.updateCounter
+    });
+    ```
+
+The service will automatically attach a `$destroy` that is used to destroy your `interval_callback` in `angIntervalService`.
+This makes it easy to use the angIntervalService in a controller, with the knowledge that the service will be automatically stopped once the controller has gone out of scope.
 
 Inside your or service, you can simply add (for example).
 
@@ -51,7 +78,8 @@ Inside your or service, you can simply add (for example).
 
 ### Registration requirements
 
-In the example above, the `$scope` is passed to the `angIntervalService.start(context)` start method. This is because the `context` that is passed to `angIntervalService.start(context)` must have a `$on` method for wiring events. Without it, registration will fail, and the service will not work.
+In the example above, the `$scope` is passed to the `angIntervalService.start(context,...)` start method. This is because the `context` that is passed to `angIntervalService.start(context)` must have a `$on` method for the auto-wiring for the `$destroy` events.
+Without it, `$destroy` must be called explicitly.
 
 
 ## Support
@@ -82,30 +110,20 @@ To save time I will systematically close all the issues that are request for gen
 Oops!
 
 Create a scenario using http://plnkr.co/ that will allows us to quickly confirm a bug (or point out coding problem) as well as confirm that we are fixing the right problem.
+Tip: Start by reproducing the bug in the demo app.
 
 We will be insisting on a minimal reproduce scenario in order to save maintainers time and ultimately be able to fix more bugs. Interestingly, from our experience users often find coding problems themselves while preparing a minimal plunk. We understand that sometimes it might be hard to extract essentials bits of code from a larger code-base but we really need to isolate the problem before we can fix it.
 
-The best part is that you don't need to create plunks from scratch - you can for one from our [demo page](http://angular-ui.github.io/bootstrap/).
-
 Unfortunately we are not able to investigate / fix bugs without a minimal reproduce scenario using http://plnkr.co/, so if we don't hear back from you we are going to close an issue that don't have enough info to be reproduced.
-
 
 ## You want to contribute some code?
 
 We are always looking for the quality contributions and will be happy to accept your Pull Requests as long as those adhere to some basic rules:
 
 * Please make sure that your contribution fits well in the project's context:
-  * we are aiming at rebuilding bootstrap directives in pure AngularJS, without any dependencies on any external JavaScript library;
-  * the only dependency should be bootstrap CSS and its markup structure;
-  * directives should be html-agnostic as much as possible which in practice means:
-        * templates should be referred to using the `templateUrl` property
-        * it should be easy to change a default template to a custom one
-        * directives shouldn't manipulate DOM structure directly (when possible)
 * Please assure that you are submitting quality code, specifically make sure that:
-  * your directive has accompanying tests and all the tests are passing; don't hesitate to contact us (angular-ui@googlegroups.com) if you need any help with unit testing
-  * your PR doesn't break the build; check the Travis-CI build status after opening a PR and push corrective commits if anything goes wrong
-
-HMC XXXXXXXXXXX Verify below
+  * your directive has accompanying tests and all the tests are passing; don't hesitate to contact us (see Support above) if you need any help with unit testing
+  * your PR doesn't break the build.
 
 #### TDD
 
