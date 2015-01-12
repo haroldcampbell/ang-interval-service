@@ -54,13 +54,44 @@ Then start the service:
 The service will automatically attach a `$destroy` that is used to destroy your `interval_callback` in `angIntervalService`.
 This makes it easy to use the angIntervalService in a controller, with the knowledge that the service will be automatically stopped once the controller has gone out of scope.
 
-Inside your or service, you can simply add (for example).
+Altogether, the example looks like this...
+
+```
+angular.module('app').controller('HomeCtrl', ['$scope', 'angIntervalService',
+       function($scope, angIntervalService) {
+           /**
+            * This could be a call to a service or factory that need to be routinely called.
+            */
+           $scope.updateCounter = function() {
+               //...update something
+           };
+
+           /**
+            * Now start the service to handle updating the counter.
+            */
+           angIntervalService.start($scope, 1000, {
+               interval_callback: $scope.updateCounter
+           });
+       }]);
+```
+
+### Parameters and additional options
+The start method accepts three parameters.
+
+`start(context, interval_time, options)`
+
+* `context` is a reference to the client object for which the interval service is being provided. In the example above this was the `$scope`.
+* `interval_time` is the interval time in milli-seconds.
+* `options` is a key-value configuration of callbacks. The values for `options` are as follows:
+    * `interval_callback`: (Required) It will be called once at the end of each "interval_time" has elapsed.
+    * `on_started_callback`: (Optional) A callback that is fired once the interval time has started.
+    * `on_stop_callback`: (Optional) A callback that is fired once the interval has been stopped.
+    * `on_destroy_callback`: (Optional) A callback that is fired once the interval has been destroyed.
 
 ### Registration requirements
 
 In the example above, the `$scope` is passed to the `angIntervalService.start(context,...)` start method. This is because the `context` that is passed to `angIntervalService.start(context)` must have a `$on` method for the auto-wiring for the `$destroy` events.
 Without it, `$destroy` must be called explicitly.
-
 
 ## Support
 
