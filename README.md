@@ -1,11 +1,11 @@
-## angIntervalService (version 0.1.0)
+# angIntervalService (version 0.1.0)
 
 angIntervalService is a service that's wrapped around the AngularJS $interval service.
 
-It further simplifies the $interval service by handling common behaviours like:
+It further simplifies the `$interval` service by handling common behaviours like:
  * starting and stopping the service;
  * providing additional stateful-callback; and also,
- * auto clean-up through the built in $destroy event that is available on controllers.
+ * auto clean-up through the built in `$destroy` event that is available on controllers.
 
 ## Why use angIntervalService?
 
@@ -20,61 +20,41 @@ Download angIntervalService, and add it to your project's script directory.
 Next, add it to your target module as a dependency; for instance if we were adding it to a controller, you would do the following:
 
 In your controller, first add the service:
-    ```
+
+```
     angular.module('app').controller('HomeCtrl', ['$scope', 'angIntervalService',
        function($scope, angIntervalService) {
            //...define callback
            //...starting code goes here
        }]);
-    ```
+```
+
 Define an interval_callback:
-    ```
+
+```
     /**
      * This could be a call to a service or factory that need to be routinely called.
      */
     $scope.updateCounter = function() {
         //...update something
     };
-    ```
+```
+
 Then start the service:
-    ```
+
+```
     /**
      * Now start the service to handle updating the counter.
      */
     angIntervalService.start($scope, 1000, {
         interval_callback: $scope.updateCounter
     });
-    ```
+```
 
 The service will automatically attach a `$destroy` that is used to destroy your `interval_callback` in `angIntervalService`.
 This makes it easy to use the angIntervalService in a controller, with the knowledge that the service will be automatically stopped once the controller has gone out of scope.
 
 Inside your or service, you can simply add (for example).
-
-```
-    $scope.counter = 0;
-
-    /**
-     * This could be a call to a service or factory that need to be routinely called.
-     */
-    function update_counter(counter) {
-      return counter + 1;
-    }
-
-    /**
-     * Registers the interval service to update the counter once every second.
-     */
-    angIntervalService.register($scope, 1000, function(){
-        $scope.counter = update_counter($scope.counter);
-    });
-
-    /**
-     * Now start the service to handle updating the counter.
-     */
-    angIntervalService.start($scope);
-
-  }]);
-```
 
 ### Registration requirements
 
@@ -110,6 +90,7 @@ To save time I will systematically close all the issues that are request for gen
 Oops!
 
 Create a scenario using http://plnkr.co/ that will allows us to quickly confirm a bug (or point out coding problem) as well as confirm that we are fixing the right problem.
+
 Tip: Start by reproducing the bug in the demo app.
 
 We will be insisting on a minimal reproduce scenario in order to save maintainers time and ultimately be able to fix more bugs. Interestingly, from our experience users often find coding problems themselves while preparing a minimal plunk. We understand that sometimes it might be hard to extract essentials bits of code from a larger code-base but we really need to isolate the problem before we can fix it.
@@ -118,7 +99,7 @@ Unfortunately we are not able to investigate / fix bugs without a minimal reprod
 
 ## You want to contribute some code?
 
-We are always looking for the quality contributions and will be happy to accept your Pull Requests as long as those adhere to some basic rules:
+Quality contributions are always welcome. I will be happy to accept your Pull Requests as long as those adhere to some basic rules:
 
 * Please make sure that your contribution fits well in the project's context:
 * Please assure that you are submitting quality code, specifically make sure that:
