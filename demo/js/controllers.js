@@ -10,13 +10,24 @@ testAppControllers
             $scope.counter = 0;
             $scope.navTest = $routeParams.navTest ? $routeParams.navTest : "root";
 
+            activate();
+
+            //////////
+
             $scope.updateCounter = function () {
                 $scope.counter = $scope.counter + 1;
             };
 
-            hmcIntervalService.start($scope, 1000, {
-                interval_callback: $scope.updateCounter
-            });
+            /**
+            * start-up logic
+            */
+            function activate() {
+                var options = {
+                    interval_callback: function(){ $scope.updateCounter(); }
+                };
+
+                hmcIntervalService.start($scope, 1000, options);
+            }
         }])
     .controller('ChildCtrl', ['$scope',
         function ($scope) {
