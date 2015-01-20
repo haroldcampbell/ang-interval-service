@@ -8,14 +8,14 @@ describe('testApp Controllers', function () {
     describe('HomeCtrl', function () {
         var rootScope, scope, ctrl, interval;
 
-        beforeEach(inject(function ($rootScope, $controller, angIntervalService, $interval) {
+        beforeEach(inject(function ($rootScope, $controller, hmcIntervalService, $interval) {
             interval = $interval;
             rootScope = $rootScope;
             scope = $rootScope.$new();
             ctrl = $controller('HomeCtrl',
                 {
                     $scope: scope,
-                    angIntervalService: angIntervalService
+                    hmcIntervalService: hmcIntervalService
                 });
         }));
 
@@ -28,7 +28,7 @@ describe('testApp Controllers', function () {
             expect(scope.counter).toBe(1);
         });
 
-        it('should have angIntervalService calling correct callback', function () {
+        it('should have hmcIntervalService calling correct callback', function () {
             interval.flush(11 * 1000);
 
             expect(scope.counter).toBe(11);

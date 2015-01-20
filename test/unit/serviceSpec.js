@@ -4,11 +4,11 @@ describe('testApp Services', function () {
     var service, interval;
 
     // load modules
-    beforeEach(module('angIntervalService'));
+    beforeEach(module('hmcIntervalService'));
 
-    beforeEach(inject(function (angIntervalService, $interval) {
+    beforeEach(inject(function (hmcIntervalService, $interval) {
         interval = $interval;
-        service = angIntervalService;
+        service = hmcIntervalService;
 
         /**
          * utility method that allows the tests to access the serviceContexts
@@ -25,7 +25,7 @@ describe('testApp Services', function () {
         expect(service).toBeDefined();
     });
 
-    describe('angIntervalService', function () {
+    describe('hmcIntervalService', function () {
         var context; // Think of this as your scope
 
         beforeEach(function () {

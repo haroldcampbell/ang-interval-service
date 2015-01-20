@@ -2,11 +2,11 @@
 
 /* Controllers */
 
-var testAppControllers = angular.module('testAppControllers', ['angIntervalService']);
+var testAppControllers = angular.module('testAppControllers', ['hmcIntervalService']);
 
 testAppControllers
-    .controller('HomeCtrl', ['$scope', 'angIntervalService', '$routeParams',
-        function ($scope, angIntervalService, $routeParams) {
+    .controller('HomeCtrl', ['$scope', 'hmcIntervalService', '$routeParams',
+        function ($scope, hmcIntervalService, $routeParams) {
             $scope.counter = 0;
             $scope.navTest = $routeParams.navTest ? $routeParams.navTest : "root";
 
@@ -14,7 +14,7 @@ testAppControllers
                 $scope.counter = $scope.counter + 1;
             };
 
-            angIntervalService.start($scope, 1000, {
+            hmcIntervalService.start($scope, 1000, {
                 interval_callback: $scope.updateCounter
             });
         }])

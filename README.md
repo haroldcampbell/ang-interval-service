@@ -1,29 +1,29 @@
-# angIntervalService (version 0.1.0)
+# hmcIntervalService (version 0.1.1)
 
-angIntervalService is a service that's wrapped around the AngularJS $interval service.
+hmcIntervalService is a service that's wrapped around the AngularJS $interval service.
 
 It further simplifies the `$interval` service by handling common behaviours like:
  * starting and stopping the service;
  * providing additional stateful-callback; and also,
  * auto clean-up through the built in `$destroy` event that is available on controllers.
 
-## Why use angIntervalService?
+## Why use hmcIntervalService?
 
 Instead of using the built-in $interval service provided by Angular, and then managing the starting, stop and clean-up, this service will do that all for you.
 
 ## Installation
 
-Installation is easy as angIntervalService has AngularJS's $interval as the only dependency.
+Installation is easy as hmcIntervalService has AngularJS's $interval as the only dependency.
 
-Download angIntervalService, and add it to your project's script directory.
+Download hmcIntervalService, and add it to your project's script directory.
 
 Next, add it to your target module as a dependency; for instance if we were adding it to a controller, you would do the following:
 
 In your controller, first add the service:
 
 ```
-    angular.module('app').controller('HomeCtrl', ['$scope', 'angIntervalService',
-       function($scope, angIntervalService) {
+    angular.module('app').controller('HomeCtrl', ['$scope', 'hmcIntervalService',
+       function($scope, hmcIntervalService) {
            //...define callback
            //...starting code goes here
        }]);
@@ -46,19 +46,19 @@ Then start the service:
     /**
      * Now start the service to handle updating the counter.
      */
-    angIntervalService.start($scope, 1000, {
+    hmcIntervalService.start($scope, 1000, {
         interval_callback: $scope.updateCounter
     });
 ```
 
-The service will automatically attach a `$destroy` that is used to destroy your `interval_callback` in `angIntervalService`.
-This makes it easy to use the angIntervalService in a controller, with the knowledge that the service will be automatically stopped once the controller has gone out of scope.
+The service will automatically attach a `$destroy` that is used to destroy your `interval_callback` in `hmcIntervalService`.
+This makes it easy to use the hmcIntervalService in a controller, with the knowledge that the service will be automatically stopped once the controller has gone out of scope.
 
 Altogether, the example looks like this...
 
 ```
-angular.module('app').controller('HomeCtrl', ['$scope', 'angIntervalService',
-       function($scope, angIntervalService) {
+angular.module('app').controller('HomeCtrl', ['$scope', 'hmcIntervalService',
+       function($scope, hmcIntervalService) {
            /**
             * This could be a call to a service or factory that need to be routinely called.
             */
@@ -69,7 +69,7 @@ angular.module('app').controller('HomeCtrl', ['$scope', 'angIntervalService',
            /**
             * Now start the service to handle updating the counter.
             */
-           angIntervalService.start($scope, 1000, {
+           hmcIntervalService.start($scope, 1000, {
                interval_callback: $scope.updateCounter
            });
        }]);
@@ -90,16 +90,16 @@ The start method accepts three parameters.
 
 ### Registration requirements
 
-In the example above, the `$scope` is passed to the `angIntervalService.start(context,...)` start method. This is because the `context` that is passed to `angIntervalService.start(context)` must have a `$on` method for the auto-wiring for the `$destroy` events.
+In the example above, the `$scope` is passed to the `hmcIntervalService.start(context,...)` start method. This is because the `context` that is passed to `hmcIntervalService.start(context)` must have a `$on` method for the auto-wiring for the `$destroy` events.
 Without it, `$destroy` must be called explicitly.
 
 ## Support
 
-If you are having problems get angIntervalService to work, there are several ways to get help:
+If you are having problems get hmcIntervalService to work, there are several ways to get help:
 
 * (This is preferred) Ask a question on [stackoverflow](http://stackoverflow.com/) under the [ang-interval-service](http://stackoverflow.com/questions/tagged/ang-interval-service) tag.
 * Send me a tweet on twitter: @haroldcampbell.
-* Email me at harold.campbell@gmail.com with '[angIntervalService HELP]' in the subject.
+* Email me at harold.campbell@gmail.com with '[hmcIntervalService HELP]' in the subject.
 
 Project's issue on GitHub should be used discuss bugs and features.
 
@@ -143,3 +143,12 @@ Quality contributions are always welcome. I will be happy to accept your Pull Re
  
 This will start Karma server and will continuously watch files in the project, executing tests upon every change.
 
+## Versions
+
+### 0.1.0
+
+- First stable version.
+
+### 0.1.1
+
+- Changed the name from `angIntervalService` to `hmcIntervalService`

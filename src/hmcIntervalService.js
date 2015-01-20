@@ -1,7 +1,7 @@
 
 /**
  * A service that's wrapped around the AngularJS $interval service.
- * angIntervalService further simplifies the $interval service by handling common behaviours like
+ * hmcIntervalService further simplifies the $interval service by handling common behaviours like
  * starting and stopping the service, and also handling clean-up through the built in $destroy event
  * that is available on controllers.
  *
@@ -9,8 +9,8 @@
  *
  * Example:
  * In your controller, first add the service:
- *      angular.module('app').controller('HomeCtrl', ['$scope', 'angIntervalService',
- *          function($scope, angIntervalService) {
+ *      angular.module('app').controller('HomeCtrl', ['$scope', 'hmcIntervalService',
+ *          function($scope, hmcIntervalService) {
  *              //...define callback
  *              //...starting code goes here
  *          }]);
@@ -21,13 +21,13 @@
  *          };
  *
  * Then start the service:
- *          angIntervalService.start($scope, 1000, {
+ *          hmcIntervalService.start($scope, 1000, {
  *              interval_callback: $scope.updateCounter
  *          });
  */
 
-angular.module('angIntervalService', [])
-    .service('angIntervalService', ['$interval',
+angular.module('hmcIntervalService', [])
+    .service('hmcIntervalService', ['$interval',
 
     function($interval) {
         this.serviceContexts = {};
