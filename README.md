@@ -97,7 +97,7 @@ Without it, `$destroy` must be called explicitly.
 
 If you are having problems get hmcIntervalService to work, there are several ways to get help:
 
-* (This is preferred) Ask a question on [stackoverflow](http://stackoverflow.com/) under the [ang-interval-service](http://stackoverflow.com/questions/tagged/ang-interval-service) tag.
+* (This is preferred) Ask a question on [stackoverflow](http://stackoverflow.com/) under the [hmc-interval-service](http://stackoverflow.com/questions/tagged/hmc-interval-service) tag.
 * Send me a tweet on twitter: @haroldcampbell.
 * Email me at harold.campbell@gmail.com with '[hmcIntervalService HELP]' in the subject.
 
